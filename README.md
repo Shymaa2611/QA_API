@@ -6,6 +6,7 @@
 - Text-to-Text Transfer Transformer (T5)
 
 
+![QA](process_image.jpg)
 
 ## Technologies
 - FASTAPI
