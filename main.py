@@ -41,7 +41,7 @@ async def create_question_answer(question: str):
     answer="There is no answer yet"
     return create_question(question, answer)
 
-@app.post("/get_qa/")
+@app.get("/get_qa/")
 async def get_data():
     session = Session()
     question = session.query(QuestionAnswer).first()
