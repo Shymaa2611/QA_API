@@ -14,7 +14,7 @@ app = FastAPI()
 def root():
     return {"message": "No result"}
 
-def create_question(question: str, answer: str):
+""" def create_question(question: str, answer: str):
     session = Session()
     db_question = QuestionAnswer(question=question, answer=answer)
     session.add(db_question)
@@ -22,7 +22,7 @@ def create_question(question: str, answer: str):
     session.refresh(db_question)
     session.close()
     return {"status_code": 200, "message": "success"}
-
+ """
 
 def get_answer(question:str):
    checkpoint_path = 'model'
@@ -32,24 +32,16 @@ def get_answer(question:str):
    input_text = question
    input_ids = tokenizer.encode(input_text, return_tensors='pt')
    output_ids = model.generate(input_ids, max_length=50, num_beams=4, early_stopping=True)
-   output_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+   output_text = tokenizer.decode(output_ids[0], skip_special_tokens=True) 
    return output_text
 
-@app.post("/create_question/")
-async def create_question_answer(question: str):
-    #answer = get_answer(question)
-    answer="There is no answer yet"
-    return create_question(question, answer)
+
 
 @app.get("/get_qa/")
-async def get_data():
-    session = Session()
-    question = session.query(QuestionAnswer).first()
+async def get_data(question:str):
+   # answer=get_answer(question)
     if question:
-        question_data = {"question": question.question, "answer": question.answer}
-        session.delete(question)  
-        session.commit()
+        question_data = {"question": question, "answer":"There is No Answer !"}
+        return question_data
     else:
-        question_data = None
-    session.close()
-    return question_data
+        return "There is No Question !"
