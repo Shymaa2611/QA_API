@@ -37,11 +37,16 @@ def get_answer(question:str):
 
 
 
-@app.get("/get_qa/")
-async def get_data(question:str):
+#@app.get("/get_qa/")
+def get_data(question:str):
    # answer=get_answer(question)
     if question:
         question_data = {"question": question, "answer":"There is No Answer !"}
         return question_data
     else:
         return "There is No Question !"
+
+if __name__=="main":
+    question="whatis the computer science"
+    answer=get_data(question)
+    print(answer)
